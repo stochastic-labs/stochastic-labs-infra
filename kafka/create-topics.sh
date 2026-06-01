@@ -11,7 +11,7 @@ done
 
 echo "Kafka ONLINE! START..."
 
-TOPIC_NAME="stochastic-topic-name"
+TOPIC_NAME="stochastic-input"
 PARTITIONS=3
 REPLICATION_FACTOR=1
 
@@ -24,3 +24,13 @@ kafka-topics \
   --replication-factor $REPLICATION_FACTOR
 
 echo "Topic '$TOPIC_NAME' created!"
+
+kafka-topics \
+  --bootstrap-server $KAFKA_BROKER \
+  --create \
+  --if-not-exists \
+  --topic "$TOPIC_NAME.DLQ" \
+  --partitions 1 \
+  --replication-factor $REPLICATION_FACTOR
+
+echo "Topic '$TOPIC_NAME'.DLQ created!"

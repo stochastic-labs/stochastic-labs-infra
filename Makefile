@@ -1,4 +1,4 @@
-.PHONY: up down wipe rebuild
+.PHONY: up down wipe rebuild logs
 
 up:
 	docker-compose -f docker-compose.yml up -d
@@ -10,3 +10,6 @@ wipe:
 	docker-compose -f docker-compose.yml down -v
 
 rebuild: wipe up
+
+logs:
+	docker compose logs -f

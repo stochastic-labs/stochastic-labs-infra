@@ -1,0 +1,4 @@
+CREATE DATABASE IF NOT EXISTS stochastic_labs_db;
+CREATE USER 'stochastic_user'@'%' IDENTIFIED BY '123456';
+GRANT ALL PRIVILEGES ON *.* TO 'stochastic_user'@'%';
+FLUSH PRIVILEGES;

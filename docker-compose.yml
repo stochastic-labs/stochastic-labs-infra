@@ -32,8 +32,8 @@ services:
     depends_on:
       - kafka
     volumes:
-      - ./kafka/create-topics.sh:/create-topics.sh
-    command: "bash -c 'chmod +x /create-topics.sh && /create-topics.sh'"
+      - ./kafka/create-topics.sh:/tmp/create-topics.sh
+    entrypoint: sh /tmp/create-topics.sh
     networks:
       - stochastic-network
 
@@ -70,8 +70,21 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_ALLOW_REMOTE_LOGINS_WITH_DEFAULT_USER: "true"
+    networks:
+      - stochastic-network
+
+  rabbitmq-init:
+    image: rabbitmq:3-management-alpine
+    container_name: stochastic-rabbitmq-init
     volumes:
-      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+      - ./rabbitmq/create-rabbitmq.sh:/tmp/create-rabbitmq.sh
+    entrypoint: sh /tmp/create-rabbitmq.sh
+    depends_on:
+      - rabbitmq
     networks:
       - stochastic-network
 

@@ -29,9 +29,9 @@ $RMQ declare exchange name=stochastic-exchange.dlx type=direct durable=true
 $RMQ declare queue name=stochastic-input-queue.dlq durable=true
 
 $RMQ declare queue name=stochastic-input-queue durable=true \
-  arguments='{"x-dead-letter-exchange":"stochastic-exchange.dlx", "x-dead-letter-routing-key":"stochastic-routing-key.dlq"}'
+  arguments='{"x-dead-letter-exchange":"stochastic-exchange.dlx", "x-dead-letter-routing-key":"stochastic-routing-key-input.dlq"}'
 
-$RMQ declare binding source=stochastic-exchange destination=stochastic-input-queue destination_type=queue routing_key=stochastic-routing-key
-$RMQ declare binding source=stochastic-exchange.dlx destination=stochastic-input-queue.dlq destination_type=queue routing_key=stochastic-routing-key.dlq
+$RMQ declare binding source=stochastic-exchange destination=stochastic-input-queue destination_type=queue routing_key=stochastic-routing-key-input
+$RMQ declare binding source=stochastic-exchange.dlx destination=stochastic-input-queue.dlq destination_type=queue routing_key=stochastic-routing-key-input.dlq
 
 echo "RabbitMQ provisioning completed successfully!"

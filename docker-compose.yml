@@ -135,6 +135,15 @@ services:
     networks:
       - stochastic-network
 
+  redis:
+    image: redis:7.2-alpine
+    container_name: stochastic-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    networks:
+      - stochastic-network
+
 networks:
   stochastic-network:
     driver: bridge
